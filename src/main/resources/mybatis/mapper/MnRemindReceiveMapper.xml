@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.choice.cloud.sysmonitor.mapper.remind.MnRemindReceiveMapper">
+
+    <resultMap type="com.choice.cloud.sysmonitor.domain.entity.remind.MnRemindReceive" id="MnRemindConfReceiveMap">
+        <result property="confId" column="conf_id" jdbcType="VARCHAR"/>
+        <result property="receiveName" column="receive_name" jdbcType="VARCHAR"/>
+        <result property="receiveType" column="receive_type" jdbcType="VARCHAR"/>
+        <result property="receiveMail" column="receive_mail" jdbcType="VARCHAR"/>
+        <result property="createUser" column="create_user" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateUser" column="update_user" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="deleteFlag" column="delete_flag" jdbcType="INTEGER"/>
+    </resultMap>
+    
+    <sql id="cols">
+        conf_id,
+        receive_name,
+        receive_type,
+        receive_mail,
+        create_user,
+        create_time,
+        update_user,
+        update_time,
+        delete_flag
+    </sql>
+
+    <sql id="pros">
+        confId,
+        receiveName,
+        receiveType,
+        receiveMail,
+        createUser,
+        createTime,
+        updateUser,
+        updateTime,
+        deleteFlag
+    </sql>
+
+    <!-- 根据配置ID查询接收信息 -->
+    <select id="queryByConfId" resultMap="MnRemindConfReceiveMap">
+        select
+        <include refid="cols"></include>
+        from mn_remind_receive
+        where delete_flag = 0
+        and conf_id = #{confId}
+    </select>
+
+</mapper>

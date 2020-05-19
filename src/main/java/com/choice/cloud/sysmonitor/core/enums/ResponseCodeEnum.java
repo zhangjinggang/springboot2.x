@@ -22,8 +22,10 @@ public enum ResponseCodeEnum {
     PARAM_ERROR("521", "参数错误"),
     SYSTEM_ERROR("522", "系统错误"),
     BUSINESS_ERROR("523", "业务异常"),
+
     NOT_GET_LOCK("524", "操作等待超时，请稍后重试。"),
     NOT_FIND_LOCK_KEY("525", "未找到到分布式锁Key，请求处理失败。"),
+    NOT_GET_LOCK_TASK("526", "其他机器正在执行定时任务，本机不再执行"),
 
     FORM_SUBMIT_FAIL("530", "数据提交失败，请联系相关人员。"),
     FORM_SUBMIT_TOKEN_INVALID("531", "非法操作或Token已失效，请刷新页面后重试"),

@@ -8,6 +8,16 @@ package com.choice.cloud.sysmonitor.core.constant;
 public class RedisKeyUtil {
     public static final String PREFIX = "choice:sys-monitor:";
 
+
+    /**
+     * 获取邮件提醒分布式锁key
+     *
+     * @return
+     */
+    public static String getMailRemindLoclKey() {
+        return PREFIX + "order-remind";
+    }
+
     /**
      * 获取业务单号分布式锁
      */

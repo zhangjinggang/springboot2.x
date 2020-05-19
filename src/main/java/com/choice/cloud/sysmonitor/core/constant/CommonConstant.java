@@ -4,6 +4,10 @@ package com.choice.cloud.sysmonitor.core.constant;
  * @author zhaojufei
  */
 public class CommonConstant {
+    /**
+     * 所有URI第一段
+     */
+    public static final String CONTEXT_PATH = "/sys-monitor";
 
     /**
      * 用户信息

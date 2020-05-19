@@ -82,7 +82,7 @@ public class ResponseData<T> implements Serializable {
     /**
      * 返回成功
      */
-    public static ResponseData createSuccessResData() {
+    public static ResponseData getSuccessRes() {
         ResponseData body = getResponseData(ResponseCodeEnum.SUCCESS);
         return body;
     }
@@ -90,14 +90,10 @@ public class ResponseData<T> implements Serializable {
     /**
      * 返回成功
      */
-    public static ResponseData createSuccessResData(Object data) {
+    public static ResponseData getSuccessResData(Object data) {
         ResponseData body = getResponseData(ResponseCodeEnum.SUCCESS);
         body.setData(data);
         return body;
-    }
-
-    public static ResponseData createBySuccess() {
-        return new ResponseData(ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDesc());
     }
 
     /**

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.choice.cloud.sysmonitor.mapper.remind.MnRemindConfMapper">
+
+    <resultMap type="com.choice.cloud.sysmonitor.domain.entity.remind.MnRemindConf" id="MnRemindConfMap">
+        <result property="confId" column="conf_id" jdbcType="VARCHAR"/>
+        <result property="confName" column="conf_name" jdbcType="VARCHAR"/>
+        <result property="confType" column="conf_type" jdbcType="VARCHAR"/>
+        <result property="confValue" column="conf_value" jdbcType="VARCHAR"/>
+        <result property="userName" column="user_name" jdbcType="VARCHAR"/>
+        <result property="passWord" column="password" jdbcType="VARCHAR"/>
+        <result property="confDesc" column="conf_desc" jdbcType="VARCHAR"/>
+        <result property="createUser" column="create_user" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateUser" column="update_user" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="deleteFlag" column="delete_flag" jdbcType="INTEGER"/>
+
+        <!-- 定时任务使用的查询，对于响应要求不高，可以先把数据都查询出来 -->
+        <collection property="receiveList"
+                    select="com.choice.cloud.sysmonitor.mapper.remind.MnRemindReceiveMapper.queryByConfId"
+                    column="{confId=conf_id}">
+        </collection>
+    </resultMap>
+
+    <sql id="cols">
+        conf_id,
+        conf_name,
+        conf_type,
+        conf_value,
+        user_name,
+        password,
+        conf_desc,
+        create_user,
+        create_time,
+        update_user,
+        update_time,
+        delete_flag
+    </sql>
+
+    <sql id="pros">
+        confId,
+        confName,
+        confType,
+        confValue,
+        userName,
+        passWord,
+        confDesc,
+        createUser,
+        createTime,
+        updateUser,
+        updateTime,
+        deleteFlag
+    </sql>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="MnRemindConfMap">
+        select
+        <include refid="cols"></include>
+        from mn_remind_conf
+        where delete_flag = 0
+        <if test="confId != null and confId != ''">
+            and conf_id = #{confId}
+        </if>
+        <if test="confType != null and confType != ''">
+            and conf_type = #{confType}
+        </if>
+        order by id
+        limit #{start}, #{pageSize}
+    </select>
+
+</mapper>

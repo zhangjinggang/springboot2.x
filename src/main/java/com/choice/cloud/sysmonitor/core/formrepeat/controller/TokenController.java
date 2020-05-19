@@ -88,7 +88,7 @@ public class TokenController {
                 redisTemplate.opsForHash().put(key, tokenString, token);
                 redisTemplate.expire(key, FormRepeatSubmitConstant.TOKEN_EXPIRE_TIME, TimeUnit.SECONDS);
 
-                return ResponseData.createSuccessResData(token);
+                return ResponseData.getSuccessResData(token);
             }
 
             @Override

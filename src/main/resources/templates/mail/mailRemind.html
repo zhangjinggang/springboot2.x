@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>title</title>
+</head>
+<body>
+<h3>您好，请查看今日<span th:text="${emailParam.date}"/>截止到<span th:text="${emailParam.time}"/>系统【<span
+        th:text="${emailParam.sysName}"/>】的监控报告，详情请查看附件~</h3>
+</body>
+</html>
