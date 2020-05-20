@@ -140,7 +140,7 @@ public class MnRemindConfServiceImpl implements MnRemindConfService {
      * @param mnRemindConf 配置
      */
     private void sendMail(List<String> emailList, String subject, MnRemindConf mnRemindConf) {
-        log.info("开始发送邮件：{}", JSON.toJSONString(mnRemindConf));
+        log.info("开始发送邮件={}，发送到={}", JSON.toJSONString(mnRemindConf), JSON.toJSONString(emailList));
         ResponseData responseData = null;
         try {
             // Context是导这个包import org.thymeleaf.context.Context;
