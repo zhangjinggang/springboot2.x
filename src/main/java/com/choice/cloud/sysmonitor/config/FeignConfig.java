@@ -6,11 +6,12 @@ import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import com.alibaba.fastjson.support.springfox.SwaggerJsonSerializer;
 import feign.Logger;
+import feign.codec.Decoder;
 import feign.codec.Encoder;
 import feign.form.spring.SpringFormEncoder;
 import org.springframework.beans.factory.ObjectFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
+import org.springframework.cloud.openfeign.support.SpringDecoder;
 import org.springframework.cloud.openfeign.support.SpringEncoder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,9 +25,6 @@ import java.util.List;
  */
 @Configuration
 public class FeignConfig {
-    @Autowired
-    private ObjectFactory<HttpMessageConverters> messageConverters;
-
     @Bean
     Logger.Level feignLoggerLevel() {
         //这里记录所有，根据实际情况选择合适的日志level
@@ -34,11 +32,16 @@ public class FeignConfig {
     }
 
     /**
-     * 支持提交文件的编码格式，这里是需要用上面的messageConverters，还是用下面的方法，需要研究下。
+     * 支持提交文件的编码格式
      */
     @Bean
     public Encoder feignEncoder() {
-        return new SpringFormEncoder(new SpringEncoder(messageConverters));
+        return new SpringFormEncoder(new SpringEncoder(feignHttpMessageConverter()));
+    }
+
+    @Bean
+    public Decoder feignDecoder() {
+        return new SpringDecoder(feignHttpMessageConverter());
     }
 
     /**
