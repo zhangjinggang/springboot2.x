@@ -127,6 +127,8 @@ public class MnRemindConfServiceImpl implements MnRemindConfService {
             }
             if (CollectionUtils.isNotEmpty(emailList)) {
                 sendMail(emailList, mailRemindTaskProperties.getSubject(), mnRemindConf);
+            } else {
+                log.warn("当前提醒项没有收件人，不发送邮件，{}", JSON.toJSONString(pageMnRemindConfDto));
             }
         }
     }
