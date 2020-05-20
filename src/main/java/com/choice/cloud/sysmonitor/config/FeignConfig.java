@@ -5,17 +5,15 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import com.alibaba.fastjson.support.springfox.SwaggerJsonSerializer;
-import feign.Client;
 import feign.Logger;
-import feign.codec.Decoder;
 import feign.codec.Encoder;
+import feign.form.spring.SpringFormEncoder;
 import org.springframework.beans.factory.ObjectFactory;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
-import org.springframework.cloud.openfeign.EnableFeignClients;
-import org.springframework.cloud.openfeign.support.SpringDecoder;
 import org.springframework.cloud.openfeign.support.SpringEncoder;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 
 import java.util.ArrayList;
@@ -24,23 +22,23 @@ import java.util.List;
 /**
  * feign 配置
  */
-@ConditionalOnClass(Client.class)
-@EnableFeignClients
+@Configuration
 public class FeignConfig {
+    @Autowired
+    private ObjectFactory<HttpMessageConverters> messageConverters;
+
     @Bean
     Logger.Level feignLoggerLevel() {
         //这里记录所有，根据实际情况选择合适的日志level
         return Logger.Level.FULL;
     }
 
+    /**
+     * 支持提交文件的编码格式，这里是需要用上面的messageConverters，还是用下面的方法，需要研究下。
+     */
     @Bean
     public Encoder feignEncoder() {
-        return new SpringEncoder(feignHttpMessageConverter());
-    }
-    
-    @Bean
-    public Decoder feignDecoder() {
-        return new SpringDecoder(feignHttpMessageConverter());
+        return new SpringFormEncoder(new SpringEncoder(messageConverters));
     }
 
     /**
