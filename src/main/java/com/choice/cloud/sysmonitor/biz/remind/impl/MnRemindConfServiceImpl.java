@@ -21,6 +21,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -192,6 +193,10 @@ public class MnRemindConfServiceImpl implements MnRemindConfService {
         }
 
         RestTemplate restTemplate = new RestTemplate();
+        SimpleClientHttpRequestFactory clientHttpRequestFactory = new SimpleClientHttpRequestFactory();
+        clientHttpRequestFactory.setConnectTimeout(10000);
+        clientHttpRequestFactory.setReadTimeout(10000);
+
         ResponseEntity<byte[]> response = restTemplate.exchange(
                 mnRemindConf.getConfValue(),
                 HttpMethod.GET,
