@@ -162,8 +162,8 @@ public class MnRemindConfServiceImpl implements MnRemindConfService {
                     subject, true,
                     emailContent,
                     createExcel(mnRemindConf));
-            // 每封邮件隔2秒钟
-            Thread.sleep(2000);
+            // 每封邮件隔3秒钟
+            Thread.sleep(3000);
             // 处理过程异常
         } catch (Exception e) {
             log.error("发送邮件处理异常，message={}，error={}", e.getMessage(), e);
