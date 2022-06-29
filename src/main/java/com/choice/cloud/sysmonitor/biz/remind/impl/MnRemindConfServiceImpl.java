@@ -90,7 +90,7 @@ public class MnRemindConfServiceImpl implements MnRemindConfService {
      */
     @Async
     @Override
-    @DistributedLock(waitTime = 0, notLockRes = ResponseCodeEnum.NOT_GET_LOCK_TASK)
+    @DistributedLock(lockName = "111", waitTime = 0, notLockRes = ResponseCodeEnum.NOT_GET_LOCK_TASK)
     @Transactional(rollbackFor = Exception.class)
     public void startTask(String lockKey, PageMnRemindConfDto pageMnRemindConfDto) {
         log.info("开始执行邮件提醒定时任务");
